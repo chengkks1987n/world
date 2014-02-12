@@ -12,18 +12,22 @@ namespace world {
   private:
     std::set<Thing*> things;
     Container(const Container& c); // without implementation
-
+    
   protected:    
     Container() {};
-    
+    void addThing(Thing* t);
+
   public:
     bool haveThing(Thing* t) const ;
     std::set<Thing*> getThings() const ;
-    void addThing(Thing* t);
+    
     void delThing(Thing* t);
     std::set<Thing*> thingNamed(const std::string name) const ;
     
     virtual ~Container() {};
+    
+    friend class Thing;
+
   };
 
 }

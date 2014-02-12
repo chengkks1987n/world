@@ -5,7 +5,7 @@ using namespace std;
 namespace world {
 
   bool Container::haveThing(Thing* t) const {
-    return things.find(t) != things.end();
+    return t != NULL && things.find(t) != things.end();
   }
 
   std::set<Thing*> Container::getThings() const {
@@ -13,7 +13,7 @@ namespace world {
   }
 
   void Container::addThing(Thing* t){
-    things.insert(t);
+    if (t != NULL) things.insert(t);
   }
 
   void Container::delThing(Thing* t) {

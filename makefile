@@ -23,11 +23,10 @@ clean:
 
 ### testing
 test: Clock.o Clock_test.o Container.o NamedObject.o NamedObject_test.o Root.o \
- Thing.o all_test.o Room.o \
+ Thing.o all_test.o Room.o Room_test.o Root_test.o \
  $(LIB_BOOST_UTF)
 	$(CXX)  -o $@ $^ 
 	./$@
-
 
 ### file dependent created by command "make rule"
 
@@ -36,11 +35,14 @@ Clock_test.o: Clock_test.cpp Clock.hpp CallBack.hpp Root.hpp
 Container.o: Container.cpp Container.hpp Root.hpp Thing.hpp \
  NamedObject.hpp
 NamedObject.o: NamedObject.cpp NamedObject.hpp Root.hpp
-NamedObject_test.o: NamedObject_test.cpp Room.hpp Container.hpp Root.hpp \
- Thing.hpp NamedObject.hpp
+NamedObject_test.o: NamedObject_test.cpp NamedObject.hpp Root.hpp
 Room.o: Room.cpp Room.hpp Container.hpp Root.hpp Thing.hpp \
+ NamedObject.hpp
+Room_test.o: Room_test.cpp Room.hpp Container.hpp Root.hpp Thing.hpp \
  NamedObject.hpp
 Root.o: Root.cpp Root.hpp
 Thing.o: Thing.cpp Thing.hpp Container.hpp Root.hpp NamedObject.hpp
-all_test.o: all_test.cpp
+all_test.o: all_test.cpp Root.hpp Container.hpp Thing.hpp NamedObject.hpp \
+ CallBack.hpp Clock.hpp
 main.o: main.cpp Clock.hpp CallBack.hpp Root.hpp
+Root_test.o: Root_test.cpp NamedObject.hpp Root.hpp
