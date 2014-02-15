@@ -11,12 +11,14 @@ namespace world {
   class Thing : public NamedObject {
   private:
     Container* location;
+
+    Thing(const Thing& t); // without implementation
+    Thing& operator=(const Thing& t); // without implementation
     
   public:
     Thing(std::string name, Container* p);
-    Thing(const Thing& t);
     Container* getLocation() const ;
-    ~Thing();
+    virtual ~Thing();
   };
 }
 

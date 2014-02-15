@@ -9,10 +9,10 @@ namespace world {
     location->addThing(this);
   }
     
-  Thing::Thing(const Thing& t):
-    NamedObject(t.getName()), 
-    location(t.getLocation()) {
-  }
+  //  Thing::Thing(const Thing& t):
+  //NamedObject(t.getName()), 
+  //location(t.getLocation()) {
+  //}
 
   Container* Thing::getLocation() const {
     return location;

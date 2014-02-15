@@ -7,8 +7,12 @@
 namespace world {
 
   class Room : public Container, public NamedObject {
+  private:
+    Room(const Room& ); // without implementation
+    Room& operator=(const Room& ); // without implementation
+
   public:
-    Room(const std::string& name);
+    explicit Room(const std::string& name);
   };
 
 }

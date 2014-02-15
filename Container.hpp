@@ -12,6 +12,7 @@ namespace world {
   private:
     std::set<Thing*> things;
     Container(const Container& c); // without implementation
+    Container& operator=(const Container& c); // without implementation
     
   protected:    
     Container() {};

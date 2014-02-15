@@ -1,11 +1,14 @@
-#include "Clock.hpp"
+ #include "Clock.hpp"
 #include <iostream>
+#include <boost/shared_ptr.hpp>
+#include <boost/make_shared.hpp>
 
 using namespace std;
+using namespace boost;
 
 namespace world{
   
-  Clock* Clock::instance = NULL;
+  shared_ptr<Clock> Clock::instance;
   
   Clock::Clock() {
     currentTime = 0;
@@ -35,8 +38,11 @@ namespace world{
     while (n--) this->tick();
   }
   
-  Clock* Clock::getInstance() {
-    if (instance == NULL)  instance = new Clock();
+  shared_ptr<Clock> Clock::getInstance() {
+    if (!instance) {
+      shared_ptr<Clock> p(new Clock());
+      instance = p;
+    }
     return instance;
   }
   

@@ -3,6 +3,7 @@
 
 #include "CallBack.hpp"
 #include <set>
+#include <boost/shared_ptr.hpp>
 
 namespace world {
   class Clock: public Root{
@@ -11,12 +12,13 @@ namespace world {
     std::set< CallBack*> events;
 
   private:
-    static Clock* instance;
+    static boost::shared_ptr<Clock> instance;
 
   private:
     Clock();  
     void tick();
 
+    Clock& operator= (const Clock& c); // without implementation
     Clock(const Clock& c); // without implementation
 
   public:
@@ -28,7 +30,7 @@ namespace world {
     void removeCallBack( CallBack* p);
 
   public:
-    static Clock* getInstance();
+    static boost::shared_ptr<Clock> getInstance();
   };
 
 }

@@ -9,9 +9,12 @@ namespace world {
   private:
     const std::string name;
     
+    NamedObject(const NamedObject& c); // without implementation
+    NamedObject& operator=(const NamedObject& c); // without implementation
+    
   public:
-    NamedObject(std::string n);
-
+    NamedObject(std::string n);//implicit type convertate from string to self
+    
     const std::string getName() const ;
   };
 

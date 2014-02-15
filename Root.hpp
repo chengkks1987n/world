@@ -10,6 +10,7 @@ namespace world {
   private:
     const boost::uuids::uuid tag;
     Root(const Root& r); // without implementation
+    Root& operator=(const Root& r); // without implementation
    
   protected:
     Root();
