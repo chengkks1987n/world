@@ -2,7 +2,7 @@
 
 namespace world {
 
-  Room::Room(const std::string& name) :
+  Room::Room(std::string name) :
     NamedObject(name) {
     
   }

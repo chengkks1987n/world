@@ -3,16 +3,17 @@
 
 #include "Container.hpp"
 #include "NamedObject.hpp"
+#include <boost/shared_ptr.hpp>
 
 namespace world {
 
   class Room : public Container, public NamedObject {
-  private:
-    Room(const Room& ); // without implementation
-    Room& operator=(const Room& ); // without implementation
-
+  protected:
+    explicit Room(std::string name);
   public:
-    explicit Room(const std::string& name);
+    static boost::shared_ptr<Room> create(std::string name) {
+      return boost::shared_ptr<Room> (new Room(name));
+    }
   };
 
 }

@@ -4,33 +4,27 @@
 #include "CallBack.hpp"
 #include <set>
 #include <boost/shared_ptr.hpp>
+#include <boost/utility.hpp>
 
 namespace world {
-  class Clock: public Root{
-  private:
-    int currentTime;
-    std::set< CallBack*> events;
-
-  private:
-    static boost::shared_ptr<Clock> instance;
-
-  private:
-    Clock();  
-    void tick();
-
-    Clock& operator= (const Clock& c); // without implementation
-    Clock(const Clock& c); // without implementation
-
+  class Clock: boost::noncopyable{
   public:
+    static boost::shared_ptr<Clock> instance();
+
     int getCurrentTime() const;
     void reset();
     void run(int n);
 
-    void addCallBack( CallBack* p) ;
-    void removeCallBack( CallBack* p);
+    void addCallBack( boost::shared_ptr<CallBack> p) ;
+    void removeCallBack(boost::shared_ptr<CallBack> p);
+  protected:
+    Clock();  
+    void tick();
+  private:
+    int currentTime;
+    std::set< boost::weak_ptr<CallBack> > events;
 
-  public:
-    static boost::shared_ptr<Clock> getInstance();
+    static boost::shared_ptr<Clock> inst;
   };
 
 }

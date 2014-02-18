@@ -1,22 +1,16 @@
 #ifndef CALL_BACK_H
 #define CALL_BACK_H
 
-#include "Root.hpp"
+#include <boost/utility.hpp>
 
 namespace world {
   
-  class CallBack {
-
+  class CallBack: boost::noncopyable {
   protected:
     CallBack() {};
-  private:    
-    CallBack(const CallBack& cb); // without implementation
-    CallBack& operator=(const CallBack& cb); // without implementation
-
+    virtual ~CallBack() {};
   public:
     virtual void action() = 0;
-    virtual ~CallBack() {};
   };
-
 }
 #endif

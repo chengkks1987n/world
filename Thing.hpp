@@ -4,21 +4,21 @@
 #include "Container.hpp"
 #include "NamedObject.hpp"
 #include <string>
+#include <boost/weak_ptr.hpp>
 
 namespace world {
   class Container;
 
-  class Thing : public NamedObject {
-  private:
-    Container* location;
-
-    Thing(const Thing& t); // without implementation
-    Thing& operator=(const Thing& t); // without implementation
-    
+  class Thing : public NamedObject { //factory class
   public:
-    Thing(std::string name, Container* p);
-    Container* getLocation() const ;
-    virtual ~Thing();
+    boost::weak_ptr<Container> getLocation() const ;
+    virtual ~Thing() {};
+    static boost::shared_ptr<Thing> create(std::string name, 
+					   boost::shared_ptr<Container> c);
+  protected:
+    Thing(std::string name, boost::shared_ptr<Container> c);
+  private:
+    boost::weak_ptr<Container> location;
   };
 }
 

@@ -1,28 +1,31 @@
 #include "Container.hpp"
 
 using namespace std;
+using namespace boost;
 
 namespace world {
 
-  bool Container::haveThing(Thing* t) const {
-    return t != NULL && things.find(t) != things.end();
+  bool Container::haveThing(shared_ptr<Thing> t) const {
+    return t && things.find(t) != things.end();
   }
 
-  std::set<Thing*> Container::getThings() const {
+  set<shared_ptr<Thing> > 
+  Container::getThings() const {
     return things;
   }
 
-  void Container::addThing(Thing* t){
-    if (t != NULL) things.insert(t);
+  void Container::addThing(shared_ptr<Thing> t){
+    if (t) things.insert(t);
   }
 
-  void Container::delThing(Thing* t) {
+  void Container::delThing(shared_ptr<Thing> t) {
     things.erase(t);
   }
 
-  std::set<Thing*> Container::thingNamed(const std::string name) const {
-    std::set<Thing*> rlt;
-    for(set<Thing*>::iterator it = things.begin();
+  set<shared_ptr<Thing> >
+  Container::thingNamed(const std::string name) const {
+    set<shared_ptr<Thing> > rlt;
+    for(set<shared_ptr<Thing> >::iterator it = things.begin();
 	it != things.end();
 	++it) {
       if ((*it)->getName() == name) {

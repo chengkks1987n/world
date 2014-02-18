@@ -1,6 +1,8 @@
  #include "Clock.hpp"
+#include <set>
 #include <iostream>
 #include <boost/shared_ptr.hpp>
+#include <boost/weak_ptr.hpp>
 #include <boost/make_shared.hpp>
 
 using namespace std;
@@ -8,17 +10,19 @@ using namespace boost;
 
 namespace world{
   
-  shared_ptr<Clock> Clock::instance;
-  
-  Clock::Clock() {
-    currentTime = 0;
+  shared_ptr<Clock> Clock::inst;
+
+  Clock::Clock(): currentTime(0) {
+    
   }
-  
+
   void Clock::tick() {
     cout << "[----- at clock " << currentTime <<" -----]" << endl;
-    for(set<CallBack*>::iterator it = events.begin();
-	it != events.end(); ++it) {
-      (*it)->action();
+    for(set<weak_ptr<CallBack> >::iterator it = events.begin();
+	it != events.end(); 
+	++it) {
+      shared_ptr<CallBack> cb = (*it).lock();
+      if (cb) 	cb->action();
     }
     ++currentTime;
   }
@@ -38,19 +42,18 @@ namespace world{
     while (n--) this->tick();
   }
   
-  shared_ptr<Clock> Clock::getInstance() {
-    if (!instance) {
-      shared_ptr<Clock> p(new Clock());
-      instance = p;
+  shared_ptr<Clock> Clock::instance() {
+    if (!inst) {
+      inst = shared_ptr<Clock>(new Clock());
     }
-    return instance;
+    return inst;
   }
   
-  void Clock::addCallBack( CallBack* p) {
-    if (p != NULL) events.insert(p);
+  void Clock::addCallBack(shared_ptr<CallBack> p) {
+    if (p) events.insert(p);
   }
 
-  void Clock::removeCallBack(CallBack* p) {
-    if (p != NULL) events.erase(p);
+  void Clock::removeCallBack(shared_ptr<CallBack> p) {
+    if (p) events.erase(p);
   }
 }
