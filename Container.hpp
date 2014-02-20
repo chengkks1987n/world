@@ -25,6 +25,7 @@ namespace world {
     void addThing(boost::shared_ptr<Thing> t);
     
     friend class Thing;
+    friend class MobileThing;
   };
 
 }
