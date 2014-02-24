@@ -1,4 +1,5 @@
 #include "Thing.hpp"
+#include "Container.hpp"
 #include "NamedObject.hpp"
 #include <string>
 #include <boost/weak_ptr.hpp>

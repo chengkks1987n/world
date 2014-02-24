@@ -13,18 +13,15 @@ namespace world {
   public:
     weak_ptr<Container> getBirthLocation() const ;
     weak_ptr<Container> getOwner() const ;
-
     static shared_ptr<MobileThing> create(std::string name,
 					  shared_ptr<Container> birthPlace);
-    static void moveTo(shared_ptr<MobileThing> mt, shared_ptr<Container> to);
   protected:
     MobileThing(std::string name, shared_ptr<Container> birthPlace);
-    weak_ptr<Container> getLocation() const ;
+    static void moveTo(shared_ptr<MobileThing> mt, shared_ptr<Container> to);
   private:
+    weak_ptr<Container> getLocation() const ;
     weak_ptr<Container> owner;
   };
-
-
 
 }
 

@@ -1,7 +1,6 @@
 #ifndef THING_H
 #define THING_H
 
-#include "Container.hpp"
 #include "NamedObject.hpp"
 #include <string>
 #include <boost/weak_ptr.hpp>
