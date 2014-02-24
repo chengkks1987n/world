@@ -23,7 +23,7 @@ clean:
 
 ### testing
 test: Clock.o Container.o NamedObject.o Room.o Thing.o MobileThing.o Exit.o\
- all_test.o  Clock_test.o Room_test.o MobileThing_test.o \
+ all_test.o  Clock_test.o Room_test.o MobileThing_test.o Exit_test.o \
  $(LIB_BOOST_UTF)
 	$(CXX)  -o $@ $^ 
 	./$@
@@ -46,3 +46,5 @@ Thing.o: Thing.cpp Thing.hpp Container.hpp NamedObject.hpp
 all_test.o: all_test.cpp Container.hpp Thing.hpp NamedObject.hpp \
  CallBack.hpp Clock.hpp
 main.o: main.cpp Clock.hpp CallBack.hpp
+Exit_test.o: Exit_test.cpp Room.hpp Direction.hpp Container.hpp Thing.hpp \
+ NamedObject.hpp MobileThing.hpp Exit.hpp

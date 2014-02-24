@@ -3,7 +3,7 @@
 
 namespace world {
 
-  enum Direction {up=1, down, south, north, west, east };
+  enum Direction {UP=1, DOWN, SOUTH, NORTH, WEST, EAST };
 
 }
 
