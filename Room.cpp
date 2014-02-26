@@ -9,7 +9,11 @@ namespace world {
   }
   
   Room::Room(std::string name) :
-    NamedObject(name) {
+    n(name) {
+  }
+  
+  const string Room::getName() const {
+    return n.getName();
   }
 
   std::set<shared_ptr<Exit> > Room::getExits() const {

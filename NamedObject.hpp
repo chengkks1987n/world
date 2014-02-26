@@ -6,9 +6,8 @@
 namespace world {
   class NamedObject{
   public:
-    const std::string getName() const ;
-  protected:
     NamedObject(std::string n);
+    const std::string getName() const ;
   private:
     const std::string name;
   };
