@@ -9,13 +9,13 @@ namespace world {
   }
   
   Room::Room(std::string name) :
-    n(name) {
+    name(name) {
   }
   
-  const string Room::getName() const {
-    return n.getName();
+  string Room::getName() const {
+    return name;
   }
-
+  /*
   std::set<shared_ptr<Exit> > Room::getExits() const {
     return exits;
   }
@@ -50,7 +50,7 @@ namespace world {
     if (!e) return;
     exits.insert(e);
   }
-
+  */
 }
 
 

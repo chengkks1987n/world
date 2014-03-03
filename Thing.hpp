@@ -1,23 +1,24 @@
 #ifndef THING_H
 #define THING_H
 
-#include "NamedObject.hpp"
 #include <string>
 #include <boost/weak_ptr.hpp>
 
 namespace world {
   class Container;
 
-  class Thing : public NamedObject { //factory class
+  class Thing {
   public:
-    boost::weak_ptr<Container> getLocation() const ;
-    virtual ~Thing() {};
     static boost::shared_ptr<Thing> create(std::string name, 
-					   boost::shared_ptr<Container> c);
+					   boost::shared_ptr<Container> location);
+    virtual ~Thing() {};
+    boost::weak_ptr<Container> getBirthLocation() const ;
+    std::string getName() const;
   protected:
-    Thing(std::string name, boost::shared_ptr<Container> c);
+    Thing(std::string name, boost::shared_ptr<Container> location);
   private:
-    boost::weak_ptr<Container> location;
+    boost::weak_ptr<Container> birthLocation;
+    std::string name;
   };
 }
 

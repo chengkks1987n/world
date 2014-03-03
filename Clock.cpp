@@ -49,11 +49,11 @@ namespace world{
     return inst;
   }
   
-  void Clock::addCallBack(shared_ptr<CallBack> p) {
-    if (p) events.insert(p);
+  void Clock::addCallBack(shared_ptr<CallBack> cb) {
+    if (cb) events.insert(cb);
   }
 
-  void Clock::removeCallBack(shared_ptr<CallBack> p) {
-    if (p) events.erase(p);
+  void Clock::removeCallBack(shared_ptr<CallBack> cb) {
+    if (cb) events.erase(cb);
   }
 }

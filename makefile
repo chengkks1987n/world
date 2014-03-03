@@ -22,8 +22,8 @@ clean:
 	-rm -rf test tmp.cpp
 
 ### testing
-test: Clock.o Container.o NamedObject.o Room.o Thing.o MobileThing.o Exit.o\
- all_test.o  Clock_test.o Room_test.o MobileThing_test.o Exit_test.o \
+test: Clock.o Thing.o  Container.o Room.o \
+ all_test.o Clock_test.o  TCR_test.o \
  $(LIB_BOOST_UTF)
 	$(CXX)  -o $@ $^ 
 	./$@
@@ -32,19 +32,17 @@ test: Clock.o Container.o NamedObject.o Room.o Thing.o MobileThing.o Exit.o\
 
 Clock.o: Clock.cpp Clock.hpp CallBack.hpp
 Clock_test.o: Clock_test.cpp Clock.hpp CallBack.hpp
-Container.o: Container.cpp Container.hpp Thing.hpp NamedObject.hpp
-Exit.o: Exit.cpp Exit.hpp
-MobileThing.o: MobileThing.cpp MobileThing.hpp Thing.hpp Container.hpp \
- NamedObject.hpp
+Container.o: Container.cpp Container.hpp Thing.hpp
+Exit.o: Exit.cpp Exit.hpp Direction.hpp Room.hpp Container.hpp Thing.hpp
+Exit_test.o: Exit_test.cpp Room.hpp Container.hpp Thing.hpp Exit.hpp \
+ Direction.hpp
+MobileThing.o: MobileThing.cpp MobileThing.hpp Thing.hpp Container.hpp
 MobileThing_test.o: MobileThing_test.cpp MobileThing.hpp Thing.hpp \
- Container.hpp NamedObject.hpp Room.hpp
-NamedObject.o: NamedObject.cpp NamedObject.hpp
-Room.o: Room.cpp Room.hpp Container.hpp Thing.hpp NamedObject.hpp
-Room_test.o: Room_test.cpp Thing.hpp Container.hpp NamedObject.hpp \
- Room.hpp
-Thing.o: Thing.cpp Thing.hpp Container.hpp NamedObject.hpp
-all_test.o: all_test.cpp Container.hpp Thing.hpp NamedObject.hpp \
- CallBack.hpp Clock.hpp
+ Container.hpp Room.hpp
+Room.o: Room.cpp Room.hpp Container.hpp Thing.hpp
+Room_test.o: Room_test.cpp Thing.hpp Room.hpp Container.hpp
+TCR_test.o: TCR_test.cpp Thing.hpp Container.hpp Room.hpp
+Thing.o: Thing.cpp Thing.hpp Container.hpp
+Thing_test.o: Thing_test.cpp Thing.hpp Container.hpp
+all_test.o: all_test.cpp Container.hpp Thing.hpp CallBack.hpp Clock.hpp
 main.o: main.cpp Clock.hpp CallBack.hpp
-Exit_test.o: Exit_test.cpp Room.hpp Direction.hpp Container.hpp Thing.hpp \
- NamedObject.hpp MobileThing.hpp Exit.hpp

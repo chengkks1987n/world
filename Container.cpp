@@ -9,8 +9,7 @@ namespace world {
     return t && things.find(t) != things.end();
   }
 
-  set<shared_ptr<Thing> > 
-  Container::getThings() const {
+  set<shared_ptr<Thing> > Container::getThings() const {
     return things;
   }
 
@@ -19,11 +18,10 @@ namespace world {
   }
 
   void Container::delThing(shared_ptr<Thing> t) {
-    things.erase(t);
+    if (t) things.erase(t);
   }
 
-  set<shared_ptr<Thing> >
-  Container::thingNamed(const std::string name) const {
+  set<shared_ptr<Thing> > Container::thingNamed(const std::string& name) const {
     set<shared_ptr<Thing> > rlt;
     for(set<shared_ptr<Thing> >::iterator it = things.begin();
 	it != things.end();
@@ -36,5 +34,6 @@ namespace world {
   }
 
 }
+
 
 
