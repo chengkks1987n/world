@@ -2,25 +2,21 @@
 #define MOBILE_THING_H
 
 #include "Thing.hpp"
-#include "Container.hpp"
 #include <boost/weak_ptr.hpp>
 
 namespace world {
-  using boost::shared_ptr;
-  using boost::weak_ptr;
+//class Container;
 
   class MobileThing : public Thing {
   public:
-    weak_ptr<Container> getBirthLocation() const ;
-    weak_ptr<Container> getOwner() const ;
-    static shared_ptr<MobileThing> create(std::string name,
-					  shared_ptr<Container> birthPlace);
+    static boost::shared_ptr<MobileThing> create(std::string name, boost::shared_ptr<Container> birthLocation);
+    static bool moveTo(boost::shared_ptr<MobileThing> mt, 
+		       boost::shared_ptr<Container> to);
+    boost::weak_ptr<Container> getOwner() const ;
   protected:
-    MobileThing(std::string name, shared_ptr<Container> birthPlace);
-    static void moveTo(shared_ptr<MobileThing> mt, shared_ptr<Container> to);
+    MobileThing(std::string name, boost::shared_ptr<Container> birthLocation);
   private:
-    weak_ptr<Container> getLocation() const ;
-    weak_ptr<Container> owner;
+    boost::weak_ptr<Container> owner;
   };
 
 }

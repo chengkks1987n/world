@@ -22,8 +22,8 @@ clean:
 	-rm -rf test tmp.cpp
 
 ### testing
-test: Clock.o Thing.o  Container.o Room.o \
- all_test.o Clock_test.o  TCR_test.o \
+test: Clock.o Thing.o  Container.o Room.o MobileThing.o \
+ all_test.o Clock_test.o  TCR_test.o MobileThing_test.o \
  $(LIB_BOOST_UTF)
 	$(CXX)  -o $@ $^ 
 	./$@
@@ -43,6 +43,5 @@ Room.o: Room.cpp Room.hpp Container.hpp Thing.hpp
 Room_test.o: Room_test.cpp Thing.hpp Room.hpp Container.hpp
 TCR_test.o: TCR_test.cpp Thing.hpp Container.hpp Room.hpp
 Thing.o: Thing.cpp Thing.hpp Container.hpp
-Thing_test.o: Thing_test.cpp Thing.hpp Container.hpp
 all_test.o: all_test.cpp Container.hpp Thing.hpp CallBack.hpp Clock.hpp
 main.o: main.cpp Clock.hpp CallBack.hpp

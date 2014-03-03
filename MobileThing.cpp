@@ -1,42 +1,36 @@
 #include "MobileThing.hpp"
-
-using std::string;
+#include "Container.hpp"
+using namespace boost;
+using namespace std;
 
 namespace world {
 
-  boost::weak_ptr<Container> MobileThing::getBirthLocation() const  {
-    return Thing::getLocation();
-  }
-
-  weak_ptr<Container> MobileThing::getOwner() const {
-    return owner;
-  }
-
   shared_ptr<MobileThing> MobileThing::create(string name, 
-					      shared_ptr<Container> birthPlace) {
-    shared_ptr<MobileThing> inst(new MobileThing(name, birthPlace));
-    birthPlace->addThing(inst);
+					      shared_ptr<Container> birthLocation){
+    shared_ptr<MobileThing> inst(new MobileThing(name, birthLocation));
+    birthLocation->addThing(inst);
     return inst;
   }
   
-  MobileThing::MobileThing(string name, shared_ptr<Container> birthPlace) : 
-    Thing(name, birthPlace), owner(birthPlace)  {
+  MobileThing::MobileThing(string name, shared_ptr<Container> birthLocation) : 
+    Thing(name, birthLocation), owner(birthLocation)  {
     
   }
 
-  weak_ptr<Container> MobileThing::getLocation() const {
-    return Thing::getLocation();
+  boost::weak_ptr<Container> MobileThing::getOwner() const  {
+    return owner;
   }
 
-  void MobileThing::moveTo(shared_ptr<MobileThing> mt, shared_ptr<Container> to) {
+  bool MobileThing::moveTo(shared_ptr<MobileThing> mt, shared_ptr<Container> to) {
     shared_ptr<Container> from = mt->getOwner().lock();
     if (to && from && to != from) {
       to->addThing(mt);
       from->delThing(mt);
       mt->owner = to;
+      return true;
     }
+    return false;
   }
-
 
 }
 
