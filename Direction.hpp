@@ -4,6 +4,8 @@
 namespace world {
 
   enum Direction {UP=1, DOWN, SOUTH, NORTH, WEST, EAST };
+  
+  Direction opposite_direction(Direction d) ;
 
 }
 

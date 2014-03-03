@@ -1,11 +1,11 @@
 #ifndef ROOM_H
 #define ROOM_H
 
-//#include "Direction.hpp"
+#include "Direction.hpp"
 #include "Container.hpp"
-//#include "Exit.hpp"
+#include "Exit.hpp"
 #include <boost/shared_ptr.hpp>
-//#include <set>
+#include <set>
 
 namespace world {
 
@@ -13,17 +13,15 @@ namespace world {
   public:
     static boost::shared_ptr<Room> create(std::string name);
     std::string getName() const;
-    //std::set<boost::shared_ptr<Exit> > getExits() const;
-    //    std::set<boost::shared_ptr<Exit> > exitsToward(Direction d);
-    //    boost::shared_ptr<Exit> exitTo(boost::shared_ptr<Room> to_room);
+    std::set<boost::shared_ptr<Exit> > getExits() const;
+    std::set<boost::shared_ptr<Exit> > exitsToward(Direction d);
+    std::set<boost::shared_ptr<Exit> > exitsTo(boost::shared_ptr<Room> to_room);
+    void addExit(boost::shared_ptr<Exit> e);
+    void delExit(boost::shared_ptr<Exit> e);
   private:
-    std::string name;
     explicit Room(std::string name);
-    //    void addExit(boost::shared_ptr<Exit> e);
-    //std::set<boost::shared_ptr<Exit> > exits;
-    //    friend boost::shared_ptr<Exit> Exit::create(Direction dirct, 
-    //						boost::shared_ptr<Room> from,
-    //						boost::shared_ptr<Room> to);
+    std::string name;
+    std::set<boost::shared_ptr<Exit> > exits;
 
   };
 

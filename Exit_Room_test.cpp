@@ -1,27 +1,18 @@
-#include "Room.hpp"
 #include "Exit.hpp"
+#include "Room.hpp"
+#include "Direction.hpp"
+
 #include <boost/test/unit_test.hpp>
+#include <boost/shared_ptr.hpp>
+#include <iostream>
+#include <set>
 
 using namespace std;
 using namespace boost;
-using namespace world;
 
-/**
-   @brief create two Exits, one is at dirction d, the other one is opposite.
-
-   @param d must be one of UP, SOUTH, WEST.
-   @param from 
-   @param to 
-   */
-void bothWayExit(Direction d, shared_ptr<Room> from, shared_ptr<Room> to) {
-  world::Exit::create(d, from, to);
-  world::Exit::create((Direction)(d+1), to, from);
-}
-
-BOOST_AUTO_TEST_CASE( test_Exit )
+BOOST_AUTO_TEST_CASE( test_Exit_Room )
 {
-  cout << "TEST Exit" << endl;
-
+  using namespace world;
   shared_ptr<world::Room> lobby_10 = world::Room::create("lobby_10");
   shared_ptr<world::Room> grendel_den = world::Room::create("grendel_den");
   shared_ptr<world::Room> building_13 = world::Room::create("building_13");
@@ -49,7 +40,9 @@ BOOST_AUTO_TEST_CASE( test_Exit )
   es = lobby_7->exitsToward(EAST);
   BOOST_CHECK(es.size() == 1);
   BOOST_CHECK(*es.begin() == e2);
-  shared_ptr<Exit> e = lobby_7->exitTo(grendel_den);
-  BOOST_CHECK(e == e2);
+
+  es = lobby_7->exitsTo(grendel_den);
+  BOOST_CHECK(es.size() == 1);
+  BOOST_CHECK(*es.begin() == e2);
 
 }

@@ -6,7 +6,7 @@ using namespace boost;
 namespace world {
 
   Direction Exit::getDirection() const {
-    return d;
+    return direction;
   }
   
   boost::weak_ptr<Room> Exit::getFrom() const {
@@ -26,7 +26,13 @@ namespace world {
   }
   
   Exit::Exit(Direction direct, shared_ptr<Room> f, shared_ptr<Room> t):
-    from(f), to(t) , d(direct) {
+    from(f), to(t) , direction(direct) {
+  }
+
+  void bothWayExit(Direction d, shared_ptr<Room> from, shared_ptr<Room> to) {
+    world::Exit::create(d, from, to);
+    Direction od = opposite_direction(d);
+    world::Exit::create(od, to, from);
   }
   
 }

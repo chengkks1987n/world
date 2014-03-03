@@ -1,4 +1,5 @@
 #include "Room.hpp"
+#include "Exit.hpp"
 
 using namespace boost;
 using namespace std;
@@ -15,7 +16,7 @@ namespace world {
   string Room::getName() const {
     return name;
   }
-  /*
+
   std::set<shared_ptr<Exit> > Room::getExits() const {
     return exits;
   }
@@ -33,24 +34,29 @@ namespace world {
     return result;
   }
 
-  shared_ptr<Exit> Room::exitTo(shared_ptr<Room> to_room) {
-    if (!to_room) return shared_ptr<Exit>();
+  std::set<boost::shared_ptr<Exit> > Room::exitsTo(shared_ptr<Room> to_room) {
+    set<shared_ptr<Exit> > result;
+    if (!to_room) return result;
     for (set<shared_ptr<Exit> >::iterator it = exits.begin();
 	 it != exits.end();
 	 ++it) {
-      shared_ptr<Room> r = (*it)->getTo().lock();
+      shared_ptr<Exit> e = *it;
+      shared_ptr<Room> r = e->getTo().lock();
       if (r == to_room) {
-	return *it;
+	result.insert(e);
       }
     }
-    return shared_ptr<Exit>();
+    return result;
   }
 
   void Room::addExit(boost::shared_ptr<Exit> e) {
-    if (!e) return;
-    exits.insert(e);
+    if (e) exits.insert(e);
   }
-  */
+  
+  void Room::delExit(boost::shared_ptr<Exit> e) {
+    if (e) exits.erase(e);
+  }
+    
 }
 
 
